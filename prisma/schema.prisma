@@ -25,3 +25,12 @@ model Permition {
 
   @@map("permitions")
 }
+
+model Roles {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  created_at  DateTime @default(now())
+
+  @@map("roles")
+}
