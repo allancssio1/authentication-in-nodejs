@@ -21,7 +21,7 @@ export const UserModels = {
       });
       return true;
     } catch (error) {
-      return error;
+      return false;
     }
   },
 };

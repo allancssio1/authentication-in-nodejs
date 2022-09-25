@@ -4,7 +4,7 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
 class SessionController {
-  async handle(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     const { username, password } = req.body;
 
     const user = await UserModels.findUserByUsername(username);
