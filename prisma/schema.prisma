@@ -18,19 +18,29 @@ model User {
 }
 
 model Permition {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  created_at  DateTime @default(now())
+  id                 String               @id @default(uuid())
+  name               String
+  description        String
+  created_at         DateTime             @default(now())
+  PermitionsAndRoles PermitionsAndRoles[]
 
   @@map("permitions")
 }
 
 model Roles {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  created_at  DateTime @default(now())
+  id                 String               @id @default(uuid())
+  name               String
+  description        String
+  created_at         DateTime             @default(now())
+  PermitionsAndRoles PermitionsAndRoles[]
 
   @@map("roles")
+}
+
+model PermitionsAndRoles {
+  id          String    @id @default(uuid())
+  permition   Permition @relation(fields: [permitionId], references: [id])
+  role        Roles     @relation(fields: [rolesId], references: [id])
+  permitionId String
+  rolesId     String
 }
