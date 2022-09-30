@@ -1,10 +1,10 @@
 import { prisma } from "../database/pirsmaClient";
 
 export const RolesModel = {
-  findRoleByName: async (name: string) => {
+  findRoleById: async (id: string) => {
     const role = await prisma.roles.findFirst({
       where: {
-        name,
+        id,
       },
     });
 
@@ -12,13 +12,12 @@ export const RolesModel = {
   },
   createNewRole: async (name: string, description: string) => {
     try {
-      await prisma.roles.create({
+      return await prisma.roles.create({
         data: {
           name,
           description,
         },
       });
-      return true;
     } catch (error) {
       return false;
     }

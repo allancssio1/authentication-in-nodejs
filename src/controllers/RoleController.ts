@@ -1,20 +1,29 @@
 import { Request, Response } from "express";
+import { PermitionModel } from "../models/Permitions";
+import { PermitionsRoles } from "../models/PermitionsRoles";
 import { RolesModel } from "../models/Roles";
 
 export class RoleController {
   async create(req: Request, res: Response) {
-    const { name, description } = req.body;
-    const existsRole = await RolesModel.findRoleByName(name);
+    const { name, description, permitionsIds } = req.body;
 
-    if (existsRole)
+    const resultCreateRole = await RolesModel.createNewRole(name, description);
+
+    if (!resultCreateRole)
       return res.status(400).json({
-        message: "Role already exists!",
+        message: "Role don't created!",
       });
 
-    const resultCreate = await RolesModel.createNewRole(name, description);
+    const roleId = resultCreateRole.id;
+
+    const resultPermitionsRoles = await PermitionsRoles.createPermitionsRole(
+      permitionsIds,
+      roleId,
+    );
 
     return res.json({
-      response: resultCreate ? "Role Create Success" : "Create role Error",
+      resultCreateRole,
+      resultPermitionsRoles,
     });
   }
 }

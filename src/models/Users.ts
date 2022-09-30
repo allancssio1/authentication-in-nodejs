@@ -1,5 +1,5 @@
-import { prisma } from "../database/pirsmaClient";
-import { hash } from "bcryptjs";
+import { prisma } from '../database/pirsmaClient';
+import { hash } from 'bcryptjs';
 
 export const UserModels = {
   findUserByUsername: async (username: string) => {
@@ -12,14 +12,13 @@ export const UserModels = {
   },
   createNewUser: async (name: string, username: string, password: string) => {
     try {
-      await prisma.user.create({
+      return await prisma.user.create({
         data: {
           name,
           username,
           password: await hash(password, 8),
         },
       });
-      return true;
     } catch (error) {
       return false;
     }

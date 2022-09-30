@@ -11,15 +11,13 @@ export class PermitionController {
         message: "Permition already exists!",
       });
 
-    const resultCreate = await PermitionModel.createNewPermition(
+    const permition = await PermitionModel.createNewPermition(
       name,
       description,
     );
 
     return res.json({
-      response: resultCreate
-        ? "Permition Create Success"
-        : "Create permition Error",
+      response: permition,
     });
   }
 }

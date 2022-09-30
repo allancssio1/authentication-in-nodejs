@@ -12,15 +12,22 @@ export const PermitionModel = {
   },
   createNewPermition: async (name: string, description: string) => {
     try {
-      await prisma.permition.create({
+      return await prisma.permition.create({
         data: {
           name,
           description,
         },
       });
-      return true;
     } catch (error) {
       return false;
     }
+  },
+  findPermitionById: async (permitionId: string) => {
+    const permitions = await prisma.permition.findMany({
+      where: {
+        id: permitionId,
+      },
+    });
+    return permitions;
   },
 };
